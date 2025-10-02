@@ -12,4 +12,8 @@ class FavoritesCubit extends Cubit<List<Product>> {
       emit([...state, product]);
     }
   }
+
+  bool isFavorite(Product product) {
+    return state.any((p) => p.id == product.id);
+  }
 }

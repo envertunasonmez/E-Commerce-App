@@ -20,13 +20,17 @@ class MainView extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
+          final size = MediaQuery.of(context).size;
+          final crossAxisCount = size.width > 600 ? 3 : 2; // Tablet vs. phone
+          final childAspectRatio = size.width > 600 ? 3 / 4 : 2 / 3;
+
           return GridView.builder(
             padding: const EdgeInsets.all(16),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
-              childAspectRatio: 2 / 3, // Kart daha uzun ve dikey
+              childAspectRatio: childAspectRatio,
             ),
             itemCount: categories.length,
             itemBuilder: (context, index) {
@@ -49,31 +53,31 @@ class MainView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Büyütülmüş container
+                      // Responsive container boyutu
                       Container(
-                        height: 120, // Önceki 80 yerine 120
-                        width: 120, // Önceki 80 yerine 120
+                        height: size.width * 0.25, // ekran genişliğine göre
+                        width: size.width * 0.25,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: Colors.grey.shade200,
                         ),
                         child: Center(
                           child: Text(
-                            category[0].toUpperCase(), // Placeholder
-                            style: const TextStyle(
-                              fontSize: 32, // Önceki 24 yerine 32
+                            category[0].toUpperCase(),
+                            style: TextStyle(
+                              fontSize: size.width * 0.08, // responsive font
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                         // Örn: Image.asset("assets/${category}.png")
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: size.height * 0.01),
                       Text(
                         category.toUpperCase(),
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 18,
+                        style: TextStyle(
+                          fontSize: size.width * 0.045,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

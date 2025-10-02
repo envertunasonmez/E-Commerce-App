@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
 import 'package:basic_e_commerce_app/view/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => FavoritesCubit()),
         BlocProvider(create: (_) => CartCubit()),
         BlocProvider(create: (_) => CategoryCubit(api)..loadCategories()),
+        BlocProvider(create: (_) => NavigationCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

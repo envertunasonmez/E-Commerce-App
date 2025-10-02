@@ -22,13 +22,23 @@ class ProductView extends StatelessWidget {
           }
 
           final products = state.products;
+
+          // Ekran genişliğine göre sütun sayısını ayarlayalım
+          final width = MediaQuery.of(context).size.width;
+          int crossAxisCount = 2;
+          if (width > 1200) {
+            crossAxisCount = 4;
+          } else if (width > 800) {
+            crossAxisCount = 3;
+          }
+
           return GridView.builder(
-            padding: const EdgeInsets.all(10),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.7,
+            padding: const EdgeInsets.all(16),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 0.65, // Kart yüksekliği ile genişliği dengeli
             ),
             itemCount: products.length,
             itemBuilder: (context, i) => ProductCard(product: products[i]),
@@ -103,9 +113,8 @@ class ProductCard extends StatelessWidget {
                   },
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 300),
-                    transitionBuilder: (child, animation) {
-                      return ScaleTransition(scale: animation, child: child);
-                    },
+                    transitionBuilder: (child, animation) =>
+                        ScaleTransition(scale: animation, child: child),
                     child: Icon(
                       isFavorite ? Icons.favorite : Icons.favorite_border,
                       key: ValueKey(isFavorite),

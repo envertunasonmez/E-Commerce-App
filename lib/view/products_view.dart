@@ -1,7 +1,7 @@
-// lib/features/products/product_view.dart
 import 'package:basic_e_commerce_app/cubit/cart/cart_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/favorites/favorites_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/product/product_cubit.dart';
+import 'package:basic_e_commerce_app/cubit/product/product_state.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,26 +14,24 @@ class ProductView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(category.toUpperCase())),
-      body: BlocBuilder<ProductCubit, List<Product>>(
-        builder: (context, products) {
-          if (products.isEmpty) {
+      body: BlocBuilder<ProductCubit, ProductState?>(
+        builder: (context, state) {
+          if (state == null || state.category != category) {
             context.read<ProductCubit>().loadProducts(category);
             return const Center(child: CircularProgressIndicator());
           }
 
+          final products = state.products;
           return GridView.builder(
             padding: const EdgeInsets.all(10),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // 2 sütun
+              crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
-              childAspectRatio: 0.7, // Kart oranı
+              childAspectRatio: 0.7,
             ),
             itemCount: products.length,
-            itemBuilder: (context, i) {
-              final product = products[i];
-              return ProductCard(product: product);
-            },
+            itemBuilder: (context, i) => ProductCard(product: products[i]),
           );
         },
       ),
@@ -56,11 +54,10 @@ class ProductCard extends StatelessWidget {
           // Ürün görseli
           Expanded(
             child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Image.network(
-                product.image,
-                fit: BoxFit.cover,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(12),
               ),
+              child: Image.network(product.image, fit: BoxFit.cover),
             ),
           ),
           // Başlık ve fiyat
@@ -90,7 +87,9 @@ class ProductCard extends StatelessWidget {
                 onPressed: () {
                   context.read<FavoritesCubit>().toggleFavorite(product);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("${product.title} favorilere eklendi")),
+                    SnackBar(
+                      content: Text("${product.title} favorilere eklendi"),
+                    ),
                   );
                 },
               ),

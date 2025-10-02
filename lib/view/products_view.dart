@@ -45,6 +45,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isFavorite = context.watch<FavoritesCubit>().isFavorite(product);
+
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -60,7 +62,7 @@ class ProductCard extends StatelessWidget {
               child: Image.network(product.image, fit: BoxFit.cover),
             ),
           ),
-          // Başlık ve fiyat
+          // Başlık
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -70,6 +72,7 @@ class ProductCard extends StatelessWidget {
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ),
+          // Fiyat
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
@@ -77,33 +80,60 @@ class ProductCard extends StatelessWidget {
               style: const TextStyle(fontSize: 14, color: Colors.green),
             ),
           ),
-          const SizedBox(height: 4),
-          // Butonlar
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.favorite_border, color: Colors.red),
-                onPressed: () {
-                  context.read<FavoritesCubit>().toggleFavorite(product);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("${product.title} favorilere eklendi"),
+          const SizedBox(height: 8),
+          // Favori ve Sepete Ekle Butonları
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                // Favori Butonu
+                GestureDetector(
+                  onTap: () {
+                    context.read<FavoritesCubit>().toggleFavorite(product);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          isFavorite
+                              ? "${product.title} favorilerden çıkarıldı"
+                              : "${product.title} favorilere eklendi",
+                        ),
+                        duration: const Duration(milliseconds: 800),
+                      ),
+                    );
+                  },
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder: (child, animation) {
+                      return ScaleTransition(scale: animation, child: child);
+                    },
+                    child: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      key: ValueKey(isFavorite),
+                      color: isFavorite ? Colors.red : Colors.grey,
+                      size: 28,
                     ),
-                  );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.add_shopping_cart, color: Colors.blue),
-                onPressed: () {
-                  context.read<CartCubit>().addToCart(product);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("${product.title} sepete eklendi")),
-                  );
-                },
-              ),
-            ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Sepete Ekle Butonu
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.read<CartCubit>().addToCart(product);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("${product.title} sepete eklendi"),
+                          duration: const Duration(milliseconds: 800),
+                        ),
+                      );
+                    },
+                    child: const Text("Sepete Ekle"),
+                  ),
+                ),
+              ],
+            ),
           ),
+          const SizedBox(height: 8),
         ],
       ),
     );

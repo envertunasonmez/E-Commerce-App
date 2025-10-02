@@ -13,24 +13,73 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pages = [
+      // Categories Grid
       BlocBuilder<CategoryCubit, List<String>>(
         builder: (context, categories) {
           if (categories.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
-          return ListView.builder(
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 2 / 3, // Kart daha uzun ve dikey
+            ),
             itemCount: categories.length,
-            itemBuilder: (context, i) {
-              return ListTile(
-                title: Text(categories[i]),
+            itemBuilder: (context, index) {
+              final category = categories[index];
+
+              return GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => ProductView(category: categories[i]),
+                      builder: (_) => ProductView(category: category),
                     ),
                   );
                 },
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Büyütülmüş container
+                      Container(
+                        height: 120, // Önceki 80 yerine 120
+                        width: 120, // Önceki 80 yerine 120
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.grey.shade200,
+                        ),
+                        child: Center(
+                          child: Text(
+                            category[0].toUpperCase(), // Placeholder
+                            style: const TextStyle(
+                              fontSize: 32, // Önceki 24 yerine 32
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        // Örn: Image.asset("assets/${category}.png")
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        category.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           );

@@ -10,9 +10,8 @@ class ApiService {
   }
 
   Future<List<dynamic>> fetchProductsByCategory(String category) async {
-    final res = await http.get(Uri.parse("$baseUrl/products/category/$category"));
+    final encodedCategory = Uri.encodeComponent(category);
+    final res = await http.get(Uri.parse("$baseUrl/products/category/$encodedCategory"));
     return jsonDecode(res.body);
   }
-
- 
 }

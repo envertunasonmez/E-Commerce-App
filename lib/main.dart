@@ -1,4 +1,5 @@
 import 'package:basic_e_commerce_app/cubit/cart/cart_cubit.dart';
+import 'package:basic_e_commerce_app/cubit/category/category_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/favorites/favorites_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/product/product_cubit.dart';
 import 'package:basic_e_commerce_app/data/services/api_service.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ProductCubit(api)),
         BlocProvider(create: (_) => FavoritesCubit()),
         BlocProvider(create: (_) => CartCubit()),
+        BlocProvider(create: (_) => CategoryCubit(api)..loadCategories()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -45,28 +47,29 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
-  final categories = [
-    "electronics",
-    "jewelery",
-    "men's clothing",
-    "women's clothing",
-  ];
-
   @override
   Widget build(BuildContext context) {
     final pages = [
       // 0: HomePage (kategori listesi)
-      ListView.builder(
-        itemCount: categories.length,
-        itemBuilder: (context, i) {
-          return ListTile(
-            title: Text(categories[i]),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ProductView(category: categories[i]),
-                ),
+      BlocBuilder<CategoryCubit, List<String>>(
+        builder: (context, categories) {
+          if (categories.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          return ListView.builder(
+            itemCount: categories.length,
+            itemBuilder: (context, i) {
+              return ListTile(
+                title: Text(categories[i]),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProductView(category: categories[i]),
+                    ),
+                  );
+                },
               );
             },
           );

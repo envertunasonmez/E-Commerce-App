@@ -9,7 +9,7 @@ class ProductCubit extends Cubit<ProductState?> {
 
   Future<void> loadProducts(String category) async {
     final data = await api.fetchProductsByCategory(category);
-    final products = (data as List).map((e) => Product.fromJson(e)).toList();
+    final products = (data).map((e) => Product.fromJson(e)).toList();
     emit(ProductState(category: category, products: products));
   }
 }

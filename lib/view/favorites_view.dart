@@ -12,8 +12,52 @@ class FavoritesView extends StatelessWidget {
     return BlocBuilder<FavoritesCubit, List<Product>>(
       builder: (context, favorites) {
         if (favorites.isEmpty) {
-          return const Center(child: Text("No favorites added yet."));
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.pink.shade50, Colors.purple.shade50],
+              ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.pink.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.favorite_outline_rounded,
+                      size: 60,
+                      color: Colors.pink.shade400,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    "No favorites yet",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Add items to your favorites to see them here.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
+                  ),
+                ],
+              ),
+            ),
+          );
         }
+
         final width = MediaQuery.of(context).size.width;
         int crossAxisCount = 2;
         if (width > 1200) {
@@ -28,7 +72,7 @@ class FavoritesView extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            childAspectRatio: 0.65, 
+            childAspectRatio: 0.65,
           ),
           itemCount: favorites.length,
           itemBuilder: (context, i) {
@@ -44,7 +88,7 @@ class FavoritesView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Expanded(
-                        flex: 3, 
+                        flex: 3,
                         child: ClipRRect(
                           borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16),
@@ -75,7 +119,7 @@ class FavoritesView extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                            color: Colors.pink,
                           ),
                         ),
                       ),
@@ -87,9 +131,7 @@ class FavoritesView extends StatelessWidget {
                             context.read<CartCubit>().addToCart(product);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(
-                                  "${product.title} added to cart",
-                                ),
+                                content: Text("${product.title} added to cart"),
                                 duration: const Duration(milliseconds: 800),
                               ),
                             );

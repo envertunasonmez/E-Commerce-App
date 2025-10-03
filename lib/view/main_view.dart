@@ -193,6 +193,7 @@ class MainView extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.white,
             foregroundColor: Colors.grey.shade800,
+            automaticallyImplyLeading: false,
           ),
           body: pages[currentIndex],
           bottomNavigationBar: Container(

@@ -209,15 +209,10 @@ class MainView extends StatelessWidget {
             automaticallyImplyLeading: false,
           ),
           body: pages[currentIndex],
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 20,
-                  offset: const Offset(0, -5),
-                ),
-              ],
+          bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
             ),
             child: BottomNavigationBar(
               currentIndex: currentIndex,

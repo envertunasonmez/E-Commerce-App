@@ -2,9 +2,86 @@ import 'package:basic_e_commerce_app/cubit/cart/cart_cubit.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
+
+  void _showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Lottie Animasyon
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Lottie.asset(
+                    'animations/cart/buy_success.json',
+                    repeat: false,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  "Satın Alma Başarılı!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade800,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "Siparişiniz başarıyla oluşturuldu.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                      context.read<CartCubit>().clearCart();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green.shade500,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: const Text(
+                      "Tamam",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +93,7 @@ class CartView extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Colors.orange.shade50,
-                  Colors.white,
-                ],
+                colors: [Colors.orange.shade50, Colors.white],
               ),
             ),
             child: Center(
@@ -51,10 +125,7 @@ class CartView extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     "Alışverişe başlamak için ürün ekleyin",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade500,
-                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
                   ),
                 ],
               ),
@@ -71,10 +142,7 @@ class CartView extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Colors.orange.shade50,
-                Colors.white,
-              ],
+              colors: [Colors.orange.shade50, Colors.white],
             ),
           ),
           child: Column(
@@ -180,7 +248,9 @@ class CartView extends StatelessWidget {
                             // Silme butonu
                             IconButton(
                               onPressed: () {
-                                context.read<CartCubit>().removeFromCart(product);
+                                context.read<CartCubit>().removeFromCart(
+                                  product,
+                                );
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
@@ -345,21 +415,7 @@ class CartView extends StatelessWidget {
                       SizedBox(
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text(
-                                  "Satın alma işlemi başarıyla tamamlandı!",
-                                ),
-                                backgroundColor: Colors.green.shade400,
-                                behavior: SnackBarBehavior.floating,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            );
-                            context.read<CartCubit>().clearCart();
-                          },
+                          onPressed: () => _showSuccessDialog(context),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.orange.shade600,
                             foregroundColor: Colors.white,
@@ -368,9 +424,9 @@ class CartView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(Icons.payment_rounded, size: 22),
                               SizedBox(width: 8),
                               Text(

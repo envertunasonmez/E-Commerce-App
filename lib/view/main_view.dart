@@ -6,6 +6,7 @@ import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
 import 'package:basic_e_commerce_app/view/cart_view.dart';
 import 'package:basic_e_commerce_app/view/favorites_view.dart';
 import 'package:basic_e_commerce_app/view/products_view.dart';
+import 'package:lottie/lottie.dart';
 
 class MainView extends StatelessWidget {
   const MainView({super.key});
@@ -45,8 +46,14 @@ class MainView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Lottie.asset(
+                          'animations/categories/shopping_cart.json',
+                          width: 140,
+                          height: 140,
+                          fit: BoxFit.cover,
+                        ),
                         Text(
                           "Kategoriler",
                           style: TextStyle(

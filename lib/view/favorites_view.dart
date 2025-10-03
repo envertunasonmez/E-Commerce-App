@@ -12,10 +12,8 @@ class FavoritesView extends StatelessWidget {
     return BlocBuilder<FavoritesCubit, List<Product>>(
       builder: (context, favorites) {
         if (favorites.isEmpty) {
-          return const Center(child: Text("Henüz favoriniz yok"));
+          return const Center(child: Text("No favorites added yet."));
         }
-
-        // Ekran genişliğine göre grid sütunlarını ayarla
         final width = MediaQuery.of(context).size.width;
         int crossAxisCount = 2;
         if (width > 1200) {
@@ -30,7 +28,7 @@ class FavoritesView extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            childAspectRatio: 0.65, // 🔥 görseli daha uzun gösterecek
+            childAspectRatio: 0.65, 
           ),
           itemCount: favorites.length,
           itemBuilder: (context, i) {
@@ -45,9 +43,8 @@ class FavoritesView extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Ürün görseli
                       Expanded(
-                        flex: 3, // 🔥 görsel uzunluğu artırıldı
+                        flex: 3, 
                         child: ClipRRect(
                           borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16),
@@ -59,7 +56,6 @@ class FavoritesView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Başlık
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -72,7 +68,6 @@ class FavoritesView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Fiyat
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
@@ -85,7 +80,6 @@ class FavoritesView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      // Sepete ekle butonu
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: ElevatedButton(
@@ -94,7 +88,7 @@ class FavoritesView extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  "${product.title} sepete eklendi",
+                                  "${product.title} added to cart",
                                 ),
                                 duration: const Duration(milliseconds: 800),
                               ),
@@ -105,7 +99,7 @@ class FavoritesView extends StatelessWidget {
                             minimumSize: const Size.fromHeight(36),
                           ),
                           child: const Text(
-                            "Sepete Ekle",
+                            "Add to Cart",
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -116,7 +110,6 @@ class FavoritesView extends StatelessWidget {
                       const SizedBox(height: 8),
                     ],
                   ),
-                  // Çöp kutusu ikonu (favorilerden çıkar)
                   Positioned(
                     top: 8,
                     right: 8,
@@ -126,7 +119,7 @@ class FavoritesView extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              "${product.title} favorilerden çıkarıldı",
+                              "${product.title} removed from favorites",
                             ),
                             duration: const Duration(milliseconds: 800),
                           ),

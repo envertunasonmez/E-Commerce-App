@@ -15,7 +15,7 @@ class FavoritesView extends StatelessWidget {
           return const Center(child: Text("Henüz favoriniz yok"));
         }
 
-        // Ekran boyutuna göre sütun sayısını ayarla
+        // Ekran genişliğine göre grid sütunlarını ayarla
         final width = MediaQuery.of(context).size.width;
         int crossAxisCount = 2;
         if (width > 1200) {
@@ -30,7 +30,7 @@ class FavoritesView extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            childAspectRatio: 0.7,
+            childAspectRatio: 0.65, // 🔥 görseli daha uzun gösterecek
           ),
           itemCount: favorites.length,
           itemBuilder: (context, i) {
@@ -38,7 +38,7 @@ class FavoritesView extends StatelessWidget {
             return Card(
               elevation: 3,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Stack(
                 children: [
@@ -47,13 +47,15 @@ class FavoritesView extends StatelessWidget {
                     children: [
                       // Ürün görseli
                       Expanded(
+                        flex: 3, // 🔥 görsel uzunluğu artırıldı
                         child: ClipRRect(
                           borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(12),
+                            top: Radius.circular(16),
                           ),
                           child: Image.network(
                             product.image,
                             fit: BoxFit.cover,
+                            width: double.infinity,
                           ),
                         ),
                       ),
@@ -74,14 +76,15 @@ class FavoritesView extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          "\$${product.price}",
+                          "\$${product.price.toStringAsFixed(2)}",
                           style: const TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                             color: Colors.green,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 6),
                       // Sepete ekle butonu
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -97,10 +100,16 @@ class FavoritesView extends StatelessWidget {
                               ),
                             );
                           },
-                          child: const Text("Sepete Ekle"),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Colors.pink,
                             minimumSize: const Size.fromHeight(36),
+                          ),
+                          child: const Text(
+                            "Sepete Ekle",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),

@@ -9,6 +9,15 @@ class CartCubit extends Cubit<List<Product>> {
   }
 
   void removeFromCart(Product product) {
-    emit(state.where((p) => p.id != product.id).toList());
+    final newList = List<Product>.from(state);
+    final index = newList.indexWhere((p) => p.id == product.id);
+    if (index != -1) {
+      newList.removeAt(index);
+      emit(newList);
+    }
+  }
+
+  void clearCart() {
+    emit([]);
   }
 }

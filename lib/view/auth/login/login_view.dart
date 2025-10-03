@@ -16,13 +16,13 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maxWidth = MediaQuery.of(context).size.width * 0.9;
+    final size = MediaQuery.of(context).size;
+    final maxWidth = size.width * 0.9;
     final formWidth = maxWidth > 400 ? 400.0 : maxWidth;
 
     return BlocProvider(
       create: (_) => LoginCubit(),
       child: Scaffold(
-        appBar: AppBar(title: const Text("Login")),
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state.isSuccess) {
@@ -32,72 +32,198 @@ class LoginView extends StatelessWidget {
               );
             }
             if (state.errorMessage != null) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage!),
+                  backgroundColor: Colors.red.shade400,
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              );
             }
           },
           builder: (context, state) {
-            return Center(
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: formWidth),
-                  child: Form(
-                    key: _formKey,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 6,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CustomTextFormField(
-                              label: "Email",
-                              controller: _emailCtrl,
-                              validator: Validator.validateEmail,
+            return Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.blue.shade50,
+                    Colors.purple.shade50,
+                  ],
+                ),
+              ),
+              child: SafeArea(
+                child: Center(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(24),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: formWidth),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Logo ve Başlık
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.shade400,
+                                  Colors.purple.shade400,
+                                ],
+                              ),
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.blue.shade200,
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 12),
-                            CustomTextFormField(
-                              label: "Parola",
-                              controller: _passCtrl,
-                              isPassword: true,
-                              validator: Validator.validatePassword,
+                            child: const Icon(
+                              Icons.shopping_bag,
+                              size: 40,
+                              color: Colors.white,
                             ),
-                            const SizedBox(height: 18),
-                            state.isLoading
-                                ? const CircularProgressIndicator()
-                                : ElevatedButton(
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        context.read<LoginCubit>().login(
-                                          _emailCtrl.text,
-                                          _passCtrl.text,
-                                        );
-                                      }
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 12,
-                                      ),
-                                      child: Text("Giriş Yap"),
+                          ),
+                          const SizedBox(height: 24),
+                          Text(
+                            "Hoş Geldiniz",
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey.shade800,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            "Hesabınıza giriş yapın",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          
+                          // Form Card
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.08),
+                                  blurRadius: 30,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(28),
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  children: [
+                                    CustomTextFormField(
+                                      label: "Email",
+                                      controller: _emailCtrl,
+                                      validator: Validator.validateEmail,
                                     ),
-                                  ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => RegisterView(),
-                                  ),
-                                );
-                              },
-                              child: const Text("Hesabın yok mu? Kayıt ol"),
+                                    const SizedBox(height: 16),
+                                    CustomTextFormField(
+                                      label: "Parola",
+                                      controller: _passCtrl,
+                                      isPassword: true,
+                                      validator: Validator.validatePassword,
+                                    ),
+                                    const SizedBox(height: 24),
+                                    
+                                    // Login Button
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 54,
+                                      child: state.isLoading
+                                          ? Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors.blue.shade600,
+                                              ),
+                                            )
+                                          : ElevatedButton(
+                                              onPressed: () {
+                                                if (_formKey.currentState!.validate()) {
+                                                  context.read<LoginCubit>().login(
+                                                    _emailCtrl.text,
+                                                    _passCtrl.text,
+                                                  );
+                                                }
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue.shade600,
+                                                foregroundColor: Colors.white,
+                                                elevation: 0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(16),
+                                                ),
+                                                shadowColor: Colors.blue.shade200,
+                                              ),
+                                              child: const Text(
+                                                "Giriş Yap",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 0.5,
+                                                ),
+                                              ),
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
+                          ),
+                          
+                          const SizedBox(height: 24),
+                          
+                          // Register Link
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Hesabınız yok mu? ",
+                                style: TextStyle(
+                                  color: Colors.grey.shade700,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => RegisterView(),
+                                    ),
+                                  );
+                                },
+                                style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                ),
+                                child: Text(
+                                  "Kayıt Ol",
+                                  style: TextStyle(
+                                    color: Colors.blue.shade600,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),

@@ -6,6 +6,7 @@ import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
 import 'package:basic_e_commerce_app/view/cart_view.dart';
 import 'package:basic_e_commerce_app/view/favorites_view.dart';
 import 'package:basic_e_commerce_app/view/products_view.dart';
+import 'package:lottie/lottie.dart';
 
 class MainView extends StatelessWidget {
   const MainView({super.key});
@@ -45,10 +46,16 @@ class MainView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Lottie.asset(
+                          'animations/categories/shopping_cart.json',
+                          width: 140,
+                          height: 140,
+                          fit: BoxFit.cover,
+                        ),
                         Text(
-                          "Kategoriler",
+                          "CATEGORIES",
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -57,7 +64,7 @@ class MainView extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "Alışverişe başlamak için bir kategori seçin",
+                          "Start shopping by selecting a category",
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.grey.shade600,
@@ -181,6 +188,12 @@ class MainView extends StatelessWidget {
       const CartView(),
     ];
 
+    final navbarColors = [
+      Colors.blue.shade600,
+      Colors.pink.shade400,
+      Colors.orange.shade600,
+    ];
+
     return BlocBuilder<NavigationCubit, int>(
       builder: (context, currentIndex) {
         return Scaffold(
@@ -196,20 +209,15 @@ class MainView extends StatelessWidget {
             automaticallyImplyLeading: false,
           ),
           body: pages[currentIndex],
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 20,
-                  offset: const Offset(0, -5),
-                ),
-              ],
+          bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
             ),
             child: BottomNavigationBar(
               currentIndex: currentIndex,
               onTap: (i) => context.read<NavigationCubit>().setIndex(i),
-              selectedItemColor: Colors.blue.shade600,
+              selectedItemColor: navbarColors[currentIndex],
               unselectedItemColor: Colors.grey.shade400,
               selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
               type: BottomNavigationBarType.fixed,
@@ -217,15 +225,15 @@ class MainView extends StatelessWidget {
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home_rounded),
-                  label: "Ana Sayfa",
+                  label: "Home",
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.favorite_rounded),
-                  label: "Favoriler",
+                  label: "Favorites",
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_cart_rounded),
-                  label: "Sepet",
+                  label: "Cart",
                 ),
               ],
             ),

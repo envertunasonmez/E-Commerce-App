@@ -2,9 +2,85 @@ import 'package:basic_e_commerce_app/cubit/cart/cart_cubit.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
+
+  void _showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Lottie.asset(
+                    'animations/cart/buy_success.json',
+                    repeat: false,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  "Purchase Successful!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade800,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "Thank you for your purchase. Your order is being processed.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                      context.read<CartCubit>().clearCart();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green.shade500,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: const Text(
+                      "Continue Shopping",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +92,7 @@ class CartView extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Colors.orange.shade50,
-                  Colors.white,
-                ],
+                colors: [Colors.orange.shade50, Colors.white],
               ),
             ),
             child: Center(
@@ -41,7 +114,7 @@ class CartView extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    "Sepetiniz boş",
+                    "Your cart is empty",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -50,11 +123,8 @@ class CartView extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Alışverişe başlamak için ürün ekleyin",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade500,
-                    ),
+                    "Add items to your cart to see them here.",
+                    style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
                   ),
                 ],
               ),
@@ -71,15 +141,11 @@ class CartView extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Colors.orange.shade50,
-                Colors.white,
-              ],
+              colors: [Colors.orange.shade50, Colors.white],
             ),
           ),
           child: Column(
             children: [
-              // Header
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Row(
@@ -89,7 +155,7 @@ class CartView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Sepetim",
+                          "My Cart",
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -98,7 +164,7 @@ class CartView extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "${cart.length} ürün",
+                          "${cart.length} items",
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.grey.shade600,
@@ -109,7 +175,6 @@ class CartView extends StatelessWidget {
                   ],
                 ),
               ),
-              // Ürün listesi
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -133,7 +198,6 @@ class CartView extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: Row(
                           children: [
-                            // Ürün görseli
                             Container(
                               width: 80,
                               height: 80,
@@ -150,7 +214,6 @@ class CartView extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 12),
-                            // Ürün bilgileri
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,11 +243,13 @@ class CartView extends StatelessWidget {
                             // Silme butonu
                             IconButton(
                               onPressed: () {
-                                context.read<CartCubit>().removeFromCart(product);
+                                context.read<CartCubit>().removeFromCart(
+                                  product,
+                                );
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      "${product.title} sepetten çıkarıldı",
+                                      "${product.title} removed from cart",
                                     ),
                                     duration: const Duration(milliseconds: 800),
                                     backgroundColor: Colors.grey.shade700,
@@ -213,7 +278,6 @@ class CartView extends StatelessWidget {
                   },
                 ),
               ),
-              // Sepet özeti ve satın al
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -234,12 +298,11 @@ class CartView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Ara toplam
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Ara Toplam:",
+                            "Subtotal:",
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.grey.shade700,
@@ -261,7 +324,7 @@ class CartView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Kargo:",
+                            "Cargo:",
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.grey.shade700,
@@ -269,7 +332,7 @@ class CartView extends StatelessWidget {
                           ),
                           Text(
                             shipping == 0
-                                ? "Ücretsiz"
+                                ? "Free"
                                 : "\$${shipping.toStringAsFixed(2)}",
                             style: TextStyle(
                               fontSize: 15,
@@ -299,7 +362,7 @@ class CartView extends StatelessWidget {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  "\$${(500 - subtotal).toStringAsFixed(2)} daha alışveriş yapın, kargo ücretsiz!",
+                                  "\$${(500 - subtotal).toStringAsFixed(2)} more to get free shipping!",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.orange.shade700,
@@ -318,12 +381,11 @@ class CartView extends StatelessWidget {
                           color: Colors.grey.shade200,
                         ),
                       ),
-                      // Toplam
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Toplam:",
+                            "Total:",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -341,25 +403,10 @@ class CartView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      // Satın Al Butonu
                       SizedBox(
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: const Text(
-                                  "Satın alma işlemi başarıyla tamamlandı!",
-                                ),
-                                backgroundColor: Colors.green.shade400,
-                                behavior: SnackBarBehavior.floating,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            );
-                            context.read<CartCubit>().clearCart();
-                          },
+                          onPressed: () => _showSuccessDialog(context),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.orange.shade600,
                             foregroundColor: Colors.white,
@@ -368,13 +415,13 @@ class CartView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(Icons.payment_rounded, size: 22),
                               SizedBox(width: 8),
                               Text(
-                                "Satın Al",
+                                "Buy Now",
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
               );
             }
             if (snapshot.hasData) {
-              return const MainView(); // kullanıcı login olmuş
+              return const MainView(); 
             }
-            return LoginView(); // login olmamış
+            return LoginView();
           },
         ),
       ),

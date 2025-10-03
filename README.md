@@ -1,16 +1,44 @@
-# basic_e_commerce_app
+# Mini E-Commerce App
 
-A new Flutter project.
+A mobile e-commerce application built with **Flutter**, offering core shopping functionalities. It features **clean code practices**, **Bloc/Cubit state management**, and **Lottie animations** for a modern UI/UX experience.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+| Feature | Description |
+|---------|-------------|
+| **Categories Page** | Displays a **Lottie animation** at the top and lists categories in a responsive grid. |
+| **Product List** | Shows products for each category, including image, name, and price. |
+| **Favorites** | Liked products are collected on the favorites page. |
+| **Cart Management** | Add/remove products, increase/decrease quantity, and calculate totals. |
+| **Themes** | Supports both light and dark themes. |
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technologies Used
+
+- **Flutter**  
+- **Bloc / Cubit** (State Management)  
+- **Lottie** (Animations)  
+- **Firebase** (Data source & authentication)  
+- **Clean Architecture** (Repository-Service pattern)
+
+---
+
+## Screenshots
+
+|  |  |  |
+|--|--|--|
+| <img src="assets/images/home.png" width="300"> | <img src="assets/images/products.png" width="300"> | <img src="assets/images/cart.png" width="300"> |
+
+---
+
+## Setup
+
+1. Make sure you have the **Flutter SDK** installed.  
+2. Clone the project:
+
+```bash
+git clone https://github.com/username/mini_e_commerce_app.git
+cd mini_e_commerce_app

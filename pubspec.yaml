@@ -67,6 +67,7 @@ flutter:
   assets:
     - animations/categories/shopping_cart.json
     - animations/cart/buy_success.json
+    - screenshots/
  
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,4 +1,5 @@
 import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
+import 'package:basic_e_commerce_app/data/repositories/product_repository.dart';
 import 'package:basic_e_commerce_app/firebase_options.dart';
 import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:basic_e_commerce_app/view/auth/login/login_view.dart';
@@ -29,10 +30,13 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => ProductCubit(api)),
+        BlocProvider(create: (_) => ProductCubit(ProductRepository(api))),
         BlocProvider(create: (_) => FavoritesCubit()),
         BlocProvider(create: (_) => CartCubit()),
-        BlocProvider(create: (_) => CategoryCubit(api)..loadCategories()),
+        BlocProvider(
+          create: (_) =>
+              CategoryCubit(ProductRepository(api))..loadCategories(),
+        ),
         BlocProvider(create: (_) => NavigationCubit()),
       ],
       child: MaterialApp(

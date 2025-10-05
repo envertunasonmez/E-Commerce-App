@@ -2,7 +2,7 @@ import 'package:basic_e_commerce_app/cubit/auth/login/login_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/auth/login/login_state.dart';
 import 'package:basic_e_commerce_app/product/utils/validator.dart';
 import 'package:basic_e_commerce_app/view/auth/register/register_view.dart';
-import 'package:basic_e_commerce_app/view/main_view.dart';
+import 'package:basic_e_commerce_app/view/main/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_e_commerce_app/product/widgets/custom_text_form_field.dart';

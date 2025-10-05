@@ -1,5 +1,6 @@
 import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
 import 'package:basic_e_commerce_app/firebase_options.dart';
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:basic_e_commerce_app/view/auth/login/login_view.dart';
 import 'package:basic_e_commerce_app/view/main/main_view.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Mini E-Commerce',
+        title: StringConstants.miniECommerce,
         theme: ThemeData.light(),
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),

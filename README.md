@@ -23,6 +23,8 @@ A mobile e-commerce application built with **Flutter**, offering core shopping f
 - **Lottie** (Animations)  
 - **Firebase** (Data source & authentication)  
 - **Clean Architecture** (Repository-Service pattern)
+- **CachedNetWorkImage**
+- **RestAPI** (Fake Api)
 
 ---
 
@@ -30,8 +32,11 @@ A mobile e-commerce application built with **Flutter**, offering core shopping f
 
 |  |  |  |
 |--|--|--|
-| <img src="assets/images/home.png" width="300"> | <img src="assets/images/products.png" width="300"> | <img src="assets/images/cart.png" width="300"> |
-
+| <img src="screenshots/1.png" width="300"> | <img src="screenshots/2.png" width="300"> | <img src="screenshots/3.png" width="300"> |
+| <img src="screenshots/4.png" width="300"> | <img src="screenshots/5.png" width="300"> | <img src="screenshots/6.png" width="300"> |
+| <img src="screenshots/7.png" width="300"> | <img src="screenshots/9.png" width="300"> | <img src="screenshots/10.png" width="300"> |
+| <img src="screenshots/11.png" width="300"> | <img src="screenshots/12.png" width="300"> | <img src="screenshots/13.png" width="300"> |
+| <img src="screenshots/14.png" width="300"> |
 ---
 
 ## Setup

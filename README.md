@@ -17,14 +17,17 @@ A mobile e-commerce application built with **Flutter**, offering core shopping f
 
 ## Technologies Used
 
-- **Flutter**  
-- **Bloc / Cubit** (State Management)  
-- **Lottie** (Animations)  
-- **Firebase** (Data source & authentication)  
-- **Clean Architecture** (Repository-Service pattern)
-- **CachedNetWorkImage**
-- **RestAPI** (Fake Api)
-- **Unit Tests** (Mocktail, Bloc Test)
+- Flutter & Dart — cross-platform mobile UI toolkit and language
+- State management: flutter_bloc (Bloc / Cubit)
+- Animations: Lottie (lottie package)
+- Backend & Authentication: Firebase (firebase_core, firebase_auth)
+- Networking: http (REST API client)
+- Image caching: cached_network_image
+- Local storage helpers: path_provider
+- Value equality: equatable
+- Testing: flutter_test, mocktail, bloc_test
+- Project structure: Clean Architecture (Repository / Service pattern)
+- Linting: flutter_lints
 
 ---
 

@@ -1,4 +1,5 @@
 import 'package:basic_e_commerce_app/product/constants/assets_constants.dart';
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:basic_e_commerce_app/product/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -31,7 +32,7 @@ class SuccessDialog extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              "Purchase Successful!",
+              StringConstants.purchaseSuccessful,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -40,13 +41,13 @@ class SuccessDialog extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              "Thank you for your purchase. Your order is being processed.",
+              StringConstants.thankYouForYourPurchase,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
             ),
             const SizedBox(height: 24),
             CustomElevatedButton(
-              text: "Continue Shopping",
+              text: StringConstants.continueShopping,
               backgroundColor: Colors.green.shade500,
               height: 48,
               width: double.infinity,

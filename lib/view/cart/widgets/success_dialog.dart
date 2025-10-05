@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/assets_constants.dart';
 import 'package:basic_e_commerce_app/product/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -13,19 +14,29 @@ class SuccessDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Container(
         padding: const EdgeInsets.all(32),
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24)),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               width: 200,
               height: 200,
-              child: Lottie.asset('animations/cart/buy_success.json', repeat: false),
+              child: Lottie.asset(
+                AssetsConstants.buySuccessAnimation,
+                repeat: false,
+              ),
             ),
             const SizedBox(height: 16),
             Text(
               "Purchase Successful!",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey.shade800),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade800,
+              ),
             ),
             const SizedBox(height: 12),
             Text(

@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/assets_constants.dart';
 import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -13,7 +14,7 @@ class CategoriesHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Lottie.asset(
-            'animations/categories/shopping_cart.json',
+            AssetsConstants.shoppingCartAnimation,
             width: 140,
             height: 140,
             fit: BoxFit.cover,

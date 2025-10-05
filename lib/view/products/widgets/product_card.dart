@@ -29,7 +29,6 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // 🖼 Ürün Görseli + Favori Butonu
           Expanded(
             flex: 3,
             child: Stack(
@@ -54,7 +53,6 @@ class ProductCard extends StatelessWidget {
             ),
           ),
 
-          // 🏷 Ürün Bilgileri + Sepet Butonu
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(

@@ -3,6 +3,7 @@ import 'package:basic_e_commerce_app/cubit/favorites/favorites_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/product/product_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/product/product_state.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
+import 'package:basic_e_commerce_app/product/widgets/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,7 +53,7 @@ class ProductView extends StatelessWidget {
               crossAxisCount: crossAxisCount,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
-              childAspectRatio: 0.75, // 🔥 biraz yükselttik
+              childAspectRatio: 0.75,
             ),
             itemCount: products.length,
             itemBuilder: (context, i) => ProductCard(product: products[i]),
@@ -86,22 +87,16 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Ürün görseli ve favori butonu
           Expanded(
             flex: 3,
             child: Stack(
+              fit: StackFit.expand,
               children: [
-                ClipRRect(
+                CustomCachedImage(
+                  imageUrl: product.image,
+                  fit: BoxFit.cover,
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(20),
-                  ),
-                  child: Container(
-                    color: Colors.grey.shade100,
-                    child: Image.network(
-                      product.image,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                    ),
                   ),
                 ),
                 Positioned(
@@ -159,14 +154,12 @@ class ProductCard extends StatelessWidget {
             ),
           ),
 
-          // Ürün bilgileri
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min, // 🔥 ekledik
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Başlık
                 Text(
                   product.title,
                   maxLines: 2,
@@ -178,10 +171,7 @@ class ProductCard extends StatelessWidget {
                     height: 1.3,
                   ),
                 ),
-
                 const SizedBox(height: 6),
-
-                // Fiyat
                 Text(
                   "\$${product.price.toStringAsFixed(2)}",
                   style: TextStyle(
@@ -190,10 +180,7 @@ class ProductCard extends StatelessWidget {
                     color: Colors.green.shade600,
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
-                // Sepete Ekle Butonu
                 SizedBox(
                   width: double.infinity,
                   height: 36,

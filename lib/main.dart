@@ -1,4 +1,5 @@
 import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
+import 'package:basic_e_commerce_app/firebase_options.dart';
 import 'package:basic_e_commerce_app/view/auth/login/login_view.dart';
 import 'package:basic_e_commerce_app/view/main_view.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ import 'package:basic_e_commerce_app/data/services/api_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
               );
             }
             if (snapshot.hasData) {
-              return const MainView(); 
+              return const MainView();
             }
             return LoginView();
           },

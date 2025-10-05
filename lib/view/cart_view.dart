@@ -1,5 +1,6 @@
 import 'package:basic_e_commerce_app/cubit/cart/cart_cubit.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
+import 'package:basic_e_commerce_app/product/widgets/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -207,9 +208,10 @@ class CartView extends StatelessWidget {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
-                                child: Image.network(
-                                  product.image,
+                                child: CustomCachedImage(
+                                  imageUrl: product.image,
                                   fit: BoxFit.cover,
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
                             ),

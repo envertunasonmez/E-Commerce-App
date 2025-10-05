@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_e_commerce_app/cubit/cart/cart_cubit.dart';
@@ -11,7 +12,7 @@ class ProductAddToCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomElevatedButton(
-      text: "Add to Cart",
+      text: StringConstants.addToCart,
       backgroundColor: Colors.blue.shade600,
       height: 36,
       width: double.infinity,

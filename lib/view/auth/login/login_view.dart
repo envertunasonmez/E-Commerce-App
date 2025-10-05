@@ -1,5 +1,6 @@
 import 'package:basic_e_commerce_app/cubit/auth/login/login_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/auth/login/login_state.dart';
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:basic_e_commerce_app/product/utils/validator.dart';
 import 'package:basic_e_commerce_app/view/auth/register/register_view.dart';
 import 'package:basic_e_commerce_app/view/main/main_view.dart';
@@ -50,10 +51,7 @@ class LoginView extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
-                    Colors.blue.shade50,
-                    Colors.purple.shade50,
-                  ],
+                  colors: [Colors.blue.shade50, Colors.purple.shade50],
                 ),
               ),
               child: SafeArea(
@@ -93,7 +91,7 @@ class LoginView extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            "Hoş Geldiniz",
+                            StringConstants.welcome,
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
@@ -102,14 +100,14 @@ class LoginView extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "Hesabınıza giriş yapın",
+                            StringConstants.logInToYourAccount,
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.grey.shade600,
                             ),
                           ),
                           const SizedBox(height: 40),
-                          
+
                           // Form Card
                           Container(
                             decoration: BoxDecoration(
@@ -130,19 +128,19 @@ class LoginView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     CustomTextFormField(
-                                      label: "Email",
+                                      label: StringConstants.email,
                                       controller: _emailCtrl,
                                       validator: Validator.validateEmail,
                                     ),
                                     const SizedBox(height: 16),
                                     CustomTextFormField(
-                                      label: "Parola",
+                                      label: StringConstants.password,
                                       controller: _passCtrl,
                                       isPassword: true,
                                       validator: Validator.validatePassword,
                                     ),
                                     const SizedBox(height: 24),
-                                    
+
                                     // Login Button
                                     SizedBox(
                                       width: double.infinity,
@@ -155,24 +153,30 @@ class LoginView extends StatelessWidget {
                                             )
                                           : ElevatedButton(
                                               onPressed: () {
-                                                if (_formKey.currentState!.validate()) {
-                                                  context.read<LoginCubit>().login(
-                                                    _emailCtrl.text,
-                                                    _passCtrl.text,
-                                                  );
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  context
+                                                      .read<LoginCubit>()
+                                                      .login(
+                                                        _emailCtrl.text,
+                                                        _passCtrl.text,
+                                                      );
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.blue.shade600,
+                                                backgroundColor:
+                                                    Colors.blue.shade600,
                                                 foregroundColor: Colors.white,
                                                 elevation: 0,
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(16),
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
                                                 ),
-                                                shadowColor: Colors.blue.shade200,
+                                                shadowColor:
+                                                    Colors.blue.shade200,
                                               ),
-                                              child: const Text(
-                                                "Giriş Yap",
+                                              child: Text(
+                                                StringConstants.logIn,
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w600,
@@ -186,15 +190,15 @@ class LoginView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          
+
                           const SizedBox(height: 24),
-                          
+
                           // Register Link
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Hesabınız yok mu? ",
+                                StringConstants.dontHaveAnAccount,
                                 style: TextStyle(
                                   color: Colors.grey.shade700,
                                   fontSize: 15,
@@ -210,10 +214,12 @@ class LoginView extends StatelessWidget {
                                   );
                                 },
                                 style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
                                 ),
                                 child: Text(
-                                  "Kayıt Ol",
+                                  StringConstants.register,
                                   style: TextStyle(
                                     color: Colors.blue.shade600,
                                     fontSize: 15,

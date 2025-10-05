@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +47,7 @@ class CartView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "My Cart",
+                          StringConstants.myCart,
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,

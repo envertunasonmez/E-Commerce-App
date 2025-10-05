@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
@@ -27,18 +28,18 @@ class MainBottomNavbar extends StatelessWidget {
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
         type: BottomNavigationBarType.fixed,
         elevation: 0,
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded),
-            label: "Home",
+            label: StringConstants.home,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_rounded),
-            label: "Favorites",
+            label: StringConstants.favorites,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_rounded),
-            label: "Cart",
+            label: StringConstants.cart,
           ),
         ],
       ),

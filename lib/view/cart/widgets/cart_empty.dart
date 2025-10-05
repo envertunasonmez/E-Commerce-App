@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 
 class CartEmpty extends StatelessWidget {
@@ -32,7 +33,7 @@ class CartEmpty extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              "Your cart is empty",
+              StringConstants.yourCartIsEmpty,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -41,7 +42,7 @@ class CartEmpty extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              "Add items to your cart to see them here.",
+              StringConstants.addItemsToYourCartToSeeThemHere,
               style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
             ),
           ],

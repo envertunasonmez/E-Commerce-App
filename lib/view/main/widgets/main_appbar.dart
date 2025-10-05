@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -6,8 +7,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
-        "Mini E-Commerce",
+      title: Text(
+        StringConstants.miniECommerce,
         style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5),
       ),
       centerTitle: true,

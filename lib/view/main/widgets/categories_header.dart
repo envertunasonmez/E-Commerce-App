@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -18,7 +19,7 @@ class CategoriesHeader extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Text(
-            "CATEGORIES",
+            StringConstants.categories,
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
@@ -27,11 +28,8 @@ class CategoriesHeader extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            "Start shopping by selecting a category",
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.grey.shade600,
-            ),
+            StringConstants.startShoppingBySelectingACategory,
+            style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
           ),
         ],
       ),

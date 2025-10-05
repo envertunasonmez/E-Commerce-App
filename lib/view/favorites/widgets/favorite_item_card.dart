@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
@@ -82,7 +83,7 @@ class FavoriteItemCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: CustomElevatedButton(
-              text: "Add to Cart",
+              text: StringConstants.addToCart,
               backgroundColor: Colors.pink,
               height: 36,
               width: double.infinity,

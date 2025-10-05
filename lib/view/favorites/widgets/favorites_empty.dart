@@ -1,3 +1,4 @@
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesEmpty extends StatelessWidget {
@@ -28,12 +29,12 @@ class FavoritesEmpty extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              "No favorites yet",
+              StringConstants.noFavoritesYet,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey.shade700),
             ),
             const SizedBox(height: 8),
             Text(
-              "Add items to favorites to see them here.",
+              StringConstants.addItemsToFavorites,
               style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:basic_e_commerce_app/cubit/auth/register/register_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/auth/register/register_state.dart';
+import 'package:basic_e_commerce_app/product/constants/string_constants.dart';
 import 'package:basic_e_commerce_app/product/utils/validator.dart';
 import 'package:basic_e_commerce_app/view/auth/login/login_view.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class RegisterView extends StatelessWidget {
             if (state.isSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text("Kayıt başarılı! Giriş yapabilirsiniz."),
+                  content: Text(StringConstants.registrationSuccessful),
                   backgroundColor: Colors.green.shade400,
                   behavior: SnackBarBehavior.floating,
                   shape: RoundedRectangleBorder(
@@ -72,7 +73,6 @@ class RegisterView extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Back Button
                           Align(
                             alignment: Alignment.centerLeft,
                             child: IconButton(
@@ -91,7 +91,6 @@ class RegisterView extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
 
-                          // Logo ve Başlık
                           Container(
                             width: 80,
                             height: 80,
@@ -119,7 +118,7 @@ class RegisterView extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            "Hesap Oluştur",
+                            StringConstants.createAccount,
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
@@ -128,7 +127,7 @@ class RegisterView extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "Yeni bir hesap oluşturun",
+                            StringConstants.createANewAccount,
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.grey.shade600,
@@ -156,20 +155,20 @@ class RegisterView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     CustomTextFormField(
-                                      label: "Email",
+                                      label: StringConstants.email,
                                       controller: _emailCtrl,
                                       validator: Validator.validateEmail,
                                     ),
                                     const SizedBox(height: 16),
                                     CustomTextFormField(
-                                      label: "Parola",
+                                      label: StringConstants.password,
                                       controller: _passCtrl,
                                       isPassword: true,
                                       validator: Validator.validatePassword,
                                     ),
                                     const SizedBox(height: 16),
                                     CustomTextFormField(
-                                      label: "Parola (Tekrar)",
+                                      label: StringConstants.passwordAgain,
                                       controller: _confirmCtrl,
                                       isPassword: true,
                                       validator: (v) =>
@@ -214,8 +213,8 @@ class RegisterView extends StatelessWidget {
                                                 shadowColor:
                                                     Colors.purple.shade200,
                                               ),
-                                              child: const Text(
-                                                "Kayıt Ol",
+                                              child: Text(
+                                                StringConstants.register,
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w600,
@@ -237,7 +236,7 @@ class RegisterView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Zaten hesabınız var mı? ",
+                                StringConstants.alreadyHaveAnAccount,
                                 style: TextStyle(
                                   color: Colors.grey.shade700,
                                   fontSize: 15,
@@ -258,7 +257,7 @@ class RegisterView extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  "Giriş Yap",
+                                  StringConstants.logIn,
                                   style: TextStyle(
                                     color: Colors.purple.shade600,
                                     fontSize: 15,

@@ -1,7 +1,7 @@
 import 'package:basic_e_commerce_app/cubit/navigation/navigation_cubit.dart';
 import 'package:basic_e_commerce_app/firebase_options.dart';
 import 'package:basic_e_commerce_app/view/auth/login/login_view.dart';
-import 'package:basic_e_commerce_app/view/main_view.dart';
+import 'package:basic_e_commerce_app/view/main/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';

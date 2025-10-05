@@ -4,6 +4,7 @@ import 'package:basic_e_commerce_app/cubit/product/product_cubit.dart';
 import 'package:basic_e_commerce_app/cubit/product/product_state.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
 import 'package:basic_e_commerce_app/product/widgets/custom_cached_network_image.dart';
+import 'package:basic_e_commerce_app/product/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -109,8 +110,8 @@ class ProductCard extends StatelessWidget {
                         SnackBar(
                           content: Text(
                             isFavorite
-                                ? "${product.title} favorilerden çıkarıldı"
-                                : "${product.title} favorilere eklendi",
+                                ? "${product.title} removed from favorites"
+                                : "${product.title} added to favorites",
                           ),
                           duration: const Duration(milliseconds: 800),
                           backgroundColor: isFavorite
@@ -181,40 +182,25 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
+                CustomElevatedButton(
+                  text: "Add to Cart",
+                  backgroundColor: Colors.blue.shade600,
                   height: 36,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      context.read<CartCubit>().addToCart(product);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("${product.title} sepete eklendi"),
-                          duration: const Duration(milliseconds: 800),
-                          backgroundColor: Colors.green.shade400,
-                          behavior: SnackBarBehavior.floating,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                  width: double.infinity,
+                  onPressed: () {
+                    context.read<CartCubit>().addToCart(product);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("${product.title} added to cart"),
+                        duration: const Duration(milliseconds: 800),
+                        backgroundColor: Colors.green.shade400,
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade600,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
                       ),
-                    ),
-                    child: const Text(
-                      "Sepete Ekle",
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:basic_e_commerce_app/cubit/cart/cart_cubit.dart';
 import 'package:basic_e_commerce_app/data/models/product_model.dart';
 import 'package:basic_e_commerce_app/product/widgets/custom_cached_network_image.dart';
+import 'package:basic_e_commerce_app/product/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -50,30 +51,17 @@ class CartView extends StatelessWidget {
                   style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
+                CustomElevatedButton(
+                  text: "Continue Shopping",
+                  backgroundColor: Colors.green.shade500,
                   height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(dialogContext).pop();
-                      context.read<CartCubit>().clearCart();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green.shade500,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: const Text(
-                      "Continue Shopping",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                  width: double.infinity,
+                  fontSize: 16,
+                  borderRadius: 16,
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop();
+                    context.read<CartCubit>().clearCart();
+                  },
                 ),
               ],
             ),
@@ -242,7 +230,6 @@ class CartView extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            // Silme butonu
                             IconButton(
                               onPressed: () {
                                 context.read<CartCubit>().removeFromCart(
@@ -321,7 +308,6 @@ class CartView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      // Kargo
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -405,34 +391,16 @@ class CartView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(
+                      CustomElevatedButton(
+                        text: "Buy Now",
+                        backgroundColor: Colors.orange.shade600,
                         height: 56,
-                        child: ElevatedButton(
-                          onPressed: () => _showSuccessDialog(context),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orange.shade600,
-                            foregroundColor: Colors.white,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.payment_rounded, size: 22),
-                              SizedBox(width: 8),
-                              Text(
-                                "Buy Now",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        width: double.infinity,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        borderRadius: 16,
+                        icon: const Icon(Icons.payment_rounded, size: 22),
+                        onPressed: () => _showSuccessDialog(context),
                       ),
                     ],
                   ),

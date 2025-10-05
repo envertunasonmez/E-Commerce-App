@@ -1,4 +1,6 @@
-class RegisterState {
+import 'package:equatable/equatable.dart';
+
+class RegisterState extends Equatable {
   final bool isLoading;
   final bool isSuccess;
   final String? errorMessage;
@@ -20,4 +22,7 @@ class RegisterState {
       errorMessage: errorMessage,
     );
   }
+
+  @override
+  List<Object?> get props => [isLoading, isSuccess, errorMessage];
 }

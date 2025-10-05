@@ -12,7 +12,6 @@ A mobile e-commerce application built with **Flutter**, offering core shopping f
 | **Product List** | Shows products for each category, including image, name, and price. |
 | **Favorites** | Liked products are collected on the favorites page. |
 | **Cart Management** | Add/remove products, increase/decrease quantity, and calculate totals. |
-| **Themes** | Supports both light and dark themes. |
 
 ---
 
@@ -25,6 +24,7 @@ A mobile e-commerce application built with **Flutter**, offering core shopping f
 - **Clean Architecture** (Repository-Service pattern)
 - **CachedNetWorkImage**
 - **RestAPI** (Fake Api)
+- **Unit Tests** (Mocktail, Bloc Test)
 
 ---
 
